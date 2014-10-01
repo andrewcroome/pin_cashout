@@ -1,21 +1,29 @@
 module PinCashout
   class Balance
     def available_balance
-      pin_response_body['available'][0]['amount']
+      pin_response_body['response']['available'][0]['amount']
     end
 
-    # private
+    def available_currency
+      pin_response_body['response']['available'][0]['currency']
+    end
+
+    def pending_balance
+      pin_response_body['response']['pending'][0]['amount']
+    end
+
+    def pending_currency
+      pin_response_body['response']['pending'][0]['currency']
+    end
+
+    private
 
     def pin_response_body
-      PinConnection.client.get(fake_request_path_for_now).body
+      PinConnection.get(request_path).body
     end
 
     def request_path
       "/#{PinCashout.config.api_version}/balance"
-    end
-
-    def fake_request_path_for_now
-      "/#{PinCashout.config.api_version}/charges"
     end
   end
 end
