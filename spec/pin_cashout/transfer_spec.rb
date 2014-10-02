@@ -67,7 +67,7 @@ RSpec.describe PinCashout::Transfer do
         end
       end
 
-      it "raises an ResourceNotFound error when Pin responds with 404" do
+      it "raises a ResourceNotFound error when Pin responds with 404" do
         VCR.use_cassette('transfer_404_error') do
           expect{ subject.process! }.to raise_error PinCashout::Error::ResourceNotFound
         end
