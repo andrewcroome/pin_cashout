@@ -1,6 +1,6 @@
 # PinCashout
 
-TODO: Write a gem description
+Empty your Pin Payments account into your bank account.
 
 ## Installation
 
@@ -18,12 +18,16 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Please note that this gem is still in development. It also depends on an API that is not yet available.
 
-## Contributing
+    PinCashout.configure do |config|
+      config.pin_environment = :test # or :live
+      config.secret_api_key = "your-secret-api-key"
+    end
 
-1. Fork it ( http://github.com/<my-github-username>/pin_cashout/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+
+    available_balance = PinCashout::Balance.new.available_balance
+
+    transfer = PinCashout::Transfer.new(amount: available_balance)
+
+    transfer.process!
