@@ -8,6 +8,8 @@ module PinCashout
       transfer = Transfer.new(amount: available_balance)
       transfer.process!
     end
+
+    true
   end
 
   def self.configure

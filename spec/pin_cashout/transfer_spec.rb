@@ -51,6 +51,7 @@ RSpec.describe PinCashout::Transfer do
 
           expect(subject.response_status).to eq 201
           expect(subject.response_amount).to eq 400
+          expect(subject.processed?).to eq true
         end
       end
     end

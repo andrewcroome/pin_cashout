@@ -16,6 +16,10 @@ module PinCashout
       check_response_status
     end
 
+    def processed?
+      @response && @response.status == 201 ? true : false
+    end
+
     def response_status
       @response.status if @response
     end
