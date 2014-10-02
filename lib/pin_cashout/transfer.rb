@@ -10,14 +10,14 @@ module PinCashout
     end
 
     def process!
+      check_valid_config
 
-      response = PinConnection.post(request_path, request_params)
-      @response_status = response.status
-      @response = response
+      @response = PinConnection.post(request_path, request_params)
+      check_response_status
     end
 
     def response_status
-      @response_status
+      @response.status if @response
     end
 
     def response_amount
@@ -25,6 +25,18 @@ module PinCashout
     end
 
     private
+
+    def check_response_status
+      case @response.status
+      when 400
+        # Pin's API document doesn't seem correct here so we don't raise the error with the message
+        raise PinCashout::Error::InsufficientFunds
+      when 404
+        raise PinCashout::Error::ResourceNotFound, "#{@response.body['error_description']}"
+      when 422
+        raise PinCashout::Error::InvalidResource, "#{@response.body['error_description']}"
+      end
+    end
 
     def request_params
       {
@@ -37,6 +49,10 @@ module PinCashout
 
     def request_path
       "/#{PinCashout.config.api_version}/transfers"
+    end
+
+    def check_valid_config
+      raise "#{self.class}: Invalid configuration. Did you provide an api key?" unless PinCashout.config.valid?
     end
   end
 end

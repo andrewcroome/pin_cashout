@@ -44,7 +44,6 @@ RSpec.describe PinCashout::Transfer do
   context "when successfully communicating with the Pin API" do
     let(:subject) { described_class.new(amount: 400, recipient: 'rp_a98a4fafROQCOT5PdwLkQ', currency: 'AUD', description: 'Earnings for may') }
 
-
     describe "#process!" do
       it "transfers the amount to the user's account" do
         VCR.use_cassette('transfer') do
@@ -55,7 +54,29 @@ RSpec.describe PinCashout::Transfer do
         end
       end
     end
+  end
 
+  context "when the response from Pin is unsuccessful" do
+    let(:subject) { described_class.new(amount: 400, recipient: 'rp_a98a4fafROQCOT5PdwLkQ', currency: 'AUD', description: 'Earnings for may') }
 
+    describe "#process!" do
+      it "raises an InsufficientFunds error when Pin responds with 400 and insufficient funds" do
+        VCR.use_cassette('transfer_400_error') do
+          expect{ subject.process! }.to raise_error PinCashout::Error::InsufficientFunds
+        end
+      end
+
+      it "raises an ResourceNotFound error when Pin responds with 404" do
+        VCR.use_cassette('transfer_404_error') do
+          expect{ subject.process! }.to raise_error PinCashout::Error::ResourceNotFound
+        end
+      end
+
+      it "raises an InvalidResource error when Pin responds with 422" do
+        VCR.use_cassette('transfer_422_error') do
+          expect{ subject.process! }.to raise_error PinCashout::Error::InvalidResource
+        end
+      end
+    end
   end
 end

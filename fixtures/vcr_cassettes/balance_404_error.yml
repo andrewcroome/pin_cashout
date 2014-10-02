@@ -1,0 +1,60 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://secret-key:@test-api.pin.net.au/1/balance
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Cache-Control:
+      - no-cache, private
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Thu, 02 Oct 2014 00:16:46 GMT
+      Server:
+      - Apache
+      Status:
+      - '404'
+      Strict-Transport-Security:
+      - max-age=252460800; includeSubdomains
+      Vary:
+      - User-Agent
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Rack-Cache:
+      - miss
+      X-Request-Id:
+      - ae09741f5f34631658d355556c1d6d4b
+      X-Runtime:
+      - '0.005719'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '167'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"error":"resource_not_found","error_description":"No resource was
+        found at this URL. See https://pin.net.au/docs/api for API documentation and
+        a list of valid URLs."}'
+    http_version: 
+  recorded_at: Thu, 02 Oct 2014 00:16:47 GMT
+recorded_with: VCR 2.9.3

@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://secret-key:@test-api.pin.net.au/1/transfers
+    body:
+      encoding: UTF-8
+      string: amount=400&currency=AUD&description=Earnings+for+may&recipient=rp_a98a4fafROQCOT5PdwLkQ
+    headers:
+      User-Agent:
+      - Faraday v0.9.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 404
+      message: Resource Not Found
+    headers:
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 01 Oct 2014 08:37:23 GMT
+      Etag:
+      - '"0cf781ba43f68b6bfbafa8a7f6c8a8e8"'
+      Server:
+      - Apache
+      Status:
+      - '201'
+      Strict-Transport-Security:
+      - max-age=31536000
+      Vary:
+      - User-Agent
+      X-Rack-Cache:
+      - invalidate, pass
+      X-Request-Id:
+      - 90d9d77de29060d27fda0815ec416409
+      X-Runtime:
+      - '0.072018'
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Content-Length:
+      - '428'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"error": "resource_not_found","error_description": "No resource was found at this URL."}'
+    http_version:
+  recorded_at: Wed, 01 Oct 2014 08:37:21 GMT
+recorded_with: VCR 2.9.3

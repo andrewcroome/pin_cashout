@@ -12,10 +12,9 @@ module PinCashout
 
     def self.client
       @pin_client ||= Faraday.new(url: request_url) do |faraday|
-        faraday.request  :multipart
-        faraday.request  :url_encoded
-        faraday.response :json, :content_type => /\bjson$/
-        faraday.adapter Faraday.default_adapter
+        faraday.request    :url_encoded
+        faraday.response   :json, :content_type => /\bjson$/
+        faraday.adapter    Faraday.default_adapter
         faraday.basic_auth PinCashout.config.secret_api_key, ''
       end
     end

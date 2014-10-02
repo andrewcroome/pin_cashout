@@ -34,4 +34,14 @@ RSpec.describe PinCashout::Balance do
         end
       end
   end
+
+  context "when the response from Pin is unsuccessful" do
+    describe "#available_balance" do
+      it "returns the available balance of the Pin account" do
+        VCR.use_cassette('balance_404_error') do
+          expect{ subject.available_balance }.to raise_error PinCashout::Error::ResourceNotFound
+        end
+      end
+    end
+  end
 end
