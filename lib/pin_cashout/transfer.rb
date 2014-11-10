@@ -24,8 +24,16 @@ module PinCashout
       @response.status if @response
     end
 
+    def response_token
+      @response.body['response']['token'] if @response
+    end
+
     def response_amount
       @response.body['response']['amount'] if @response
+    end
+
+    def response
+      @response
     end
 
     private
