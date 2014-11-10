@@ -27,11 +27,11 @@ module PinCashout
     end
 
     def response_token
-      @response.body['response']['token'] if @response
+      @response.body['response']['token'] if @response && @response.body['response']
     end
 
     def response_amount
-      @response.body['response']['amount'] if @response
+      @response.body['response']['amount'] if @response && @response.body['response']
     end
 
     def response
