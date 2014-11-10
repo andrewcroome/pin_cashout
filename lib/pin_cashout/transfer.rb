@@ -35,10 +35,14 @@ module PinCashout
       when 400
         # Pin's API document doesn't seem correct here so we don't raise the error with the message
         raise PinCashout::Error::InsufficientFunds
+      when 402
+        raise PinCashout::Error::InsufficientFunds, "#{@response.body['error_description']}"
       when 404
         raise PinCashout::Error::ResourceNotFound, "#{@response.body['error_description']}"
       when 422
         raise PinCashout::Error::InvalidResource, "#{@response.body['error_description']}"
+      when 500
+        raise PinCashout::Error::PinInternalServerError, "#{@response.body['error_description']}"
       end
     end
 
