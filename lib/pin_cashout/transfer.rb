@@ -15,7 +15,7 @@ module PinCashout
       @response = PinConnection.post(request_path, request_params)
       check_response_status
 
-      processed? ? true : false
+      processed?
     end
 
     def processed?
