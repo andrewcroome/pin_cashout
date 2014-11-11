@@ -47,11 +47,12 @@ RSpec.describe PinCashout::Transfer do
     describe "#process!" do
       it "transfers the amount to the user's account" do
         VCR.use_cassette('transfer') do
-          subject.process!
+          result = subject.process!
 
           expect(subject.response_status).to eq 201
           expect(subject.response_amount).to eq 400
           expect(subject.processed?).to eq true
+          expect(result).to eq true
         end
       end
     end
